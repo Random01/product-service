@@ -1,0 +1,32 @@
+[
+  {
+    "id": "08bb5d20-da21-43e1-8fc4-c43e4a33cc8e",
+    "name": "Product 1",
+    "amount": 100
+  },
+  {
+    "id": "ce9c7e7b-1c70-4b58-b8c9-a47324b1ada4",
+    "name": "Product 2",
+    "amount": 200
+  },
+  {
+    "id": "f4bcb34a-5560-452d-805c-079c89e9a3cb",
+    "name": "Product 3",
+    "amount": 60
+  },
+  {
+    "id": "f4bcb34a-5560-452d-805c-079c89e9a3cb",
+    "name": "Product 4",
+    "amount": 987
+  },
+  {
+    "id": "f4bcb34a-5560-452d-805c-079c89e9a3cb",
+    "name": "Product 5",
+    "amount": 1000
+  },
+  {
+    "id": "f4bcb34a-5560-452d-805c-079c89e9a3cb",
+    "name": "Product 6",
+    "amount": 500
+  }
+]

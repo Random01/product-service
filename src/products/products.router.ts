@@ -1,15 +1,15 @@
 import express from 'express';
 
 import * as core from 'express-serve-static-core';
+import { DynamoDbProductsService } from './dynamo-db-products.service';
 
-import { ProductsService } from './products.service';
-import { defaultProducts } from './default-products';
+import { ProductsService } from './products-service.interface';
 
 export class ProductsRouter {
 
   constructor(
     app: core.Express,
-    private readonly productService = new ProductsService(defaultProducts),
+    private readonly productService: ProductsService = new DynamoDbProductsService(),
   ) {
     const router = express.Router();
 
@@ -58,7 +58,7 @@ export class ProductsRouter {
   }
 
   private handleError(res: core.Response, error: Error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error.message || 'Service unavailable');
   }
 
 }

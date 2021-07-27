@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Product } from './product.model';
+import { ProductsService } from './products-service.interface';
 
-export class ProductsService {
+export class MockProductsService implements ProductsService {
 
   private readonly products = new Map<string, Product>();
 
