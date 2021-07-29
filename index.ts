@@ -5,13 +5,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ProductsRouter } from './src/products';
 
-import { Config } from './src/config';
+import { DevelopmentConfig, ProductionConfig } from './src/config';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 const appUuid = uuidv4();
 
-AWS.config.update(Config);
+const env = process.env.NODE_ENV || 'development';
+AWS.config.update(env === 'production' ? ProductionConfig : DevelopmentConfig);
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -28,6 +28,7 @@ app.get('/state', (_, res) => {
 
 new ProductsRouter(app);
 
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Product Service App is listening on port ${PORT}!`);
 });
