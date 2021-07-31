@@ -1,7 +1,8 @@
 import express from 'express';
 
 import * as core from 'express-serve-static-core';
-import { DynamoDbProductsService } from './dynamo-db-products.service';
+import { CachedDynamoDbProductsService } from './cached-dynamo-db-products.service';
+
 
 import { ProductsService } from './products-service.interface';
 
@@ -9,7 +10,7 @@ export class ProductsRouter {
 
   constructor(
     app: core.Express,
-    private readonly productService: ProductsService = new DynamoDbProductsService(),
+    private readonly productService: ProductsService = new CachedDynamoDbProductsService(),
   ) {
     const router = express.Router();
 
