@@ -11,7 +11,7 @@ const app = express();
 const appUuid = uuidv4();
 
 const env = process.env.NODE_ENV || 'development';
-AWS.config.update(env === 'development' ? ProductionConfig : DevelopmentConfig);
+AWS.config.update((env === 'production' ? ProductionConfig : DevelopmentConfig).aws);
 
 app.use(express.json());
 app.use(express.urlencoded({

@@ -2,15 +2,20 @@ import { DynamoDbProductsService } from './dynamo-db-products.service';
 
 import { RedisClientWrapper } from '../redis';
 
+import { DynamoDbCrudTableWrapper } from '../aws'
+
 export class CachedDynamoDbProductsService extends DynamoDbProductsService {
 
-  private readonly cacheService = new RedisClientWrapper({
-    host: 'product-service-elasticache-cluster.bzirpc.0001.use2.cache.amazonaws.com',
-    port: 6379,
-  });
-
-  constructor(wrapper?: any) {
+  constructor(
+    wrapper?: DynamoDbCrudTableWrapper,
+    private readonly cacheService?: RedisClientWrapper,
+  ) {
     super(wrapper);
+
+    this.cacheService = this.cacheService || new RedisClientWrapper({
+      host: 'product-service-elasticache-cluster.bzirpc.0001.use2.cache.amazonaws.com',
+      port: 6379,
+    });
   }
 
   public getProducts() {

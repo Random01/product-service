@@ -1,10 +1,15 @@
 import redis from 'redis';
 
+import { Logger } from '../common';
+
 export class RedisClientWrapper {
 
   private readonly client: redis.RedisClient;
 
-  constructor(options?: redis.ClientOpts) {
+  constructor(
+    options?: redis.ClientOpts,
+    private readonly logger = new Logger(),
+  ) {
     this.client = redis.createClient({
       ...options,
       retry_strategy: opr => {
@@ -13,11 +18,11 @@ export class RedisClientWrapper {
           // a individual error
           return new Error('The server refused the connection');
         }
-      }
+      },
     });
 
     this.client.on('error', err => {
-      console.log('Error ' + err);
+      this.logger.error('Error ' + err);
     });
   }
 
@@ -27,7 +32,7 @@ export class RedisClientWrapper {
         if (!err) {
           success();
         } else {
-          console.log('Error ' + err);
+          this.logger.error('Error ' + err);
           fail(err);
         }
       });
@@ -40,7 +45,7 @@ export class RedisClientWrapper {
         if (!err) {
           success(reply);
         } else {
-          console.log('Error ' + err);
+          this.logger.error('Error ' + err);
           fail(err);
         }
       });
